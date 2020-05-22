@@ -40,6 +40,8 @@ class CountriesController extends Controller
     {
         abort_if(Gate::denies('country_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $country->load('created_by');
+
         return view('admin.countries.edit', compact('country'));
     }
 
@@ -53,6 +55,8 @@ class CountriesController extends Controller
     public function show(Country $country)
     {
         abort_if(Gate::denies('country_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $country->load('created_by');
 
         return view('admin.countries.show', compact('country'));
     }
